@@ -24,16 +24,16 @@ For loop breakdown: for ([initialization]; [condition]; [final-expression]) {}
 
 The .includes() method returns true if the array contains the character, and false if not. The logical NOT operator (!) will return the opposite of the value of the .includes() method */ 
 
-// function cleanInputString(str) {
-//     const strArray = str.split('');
-//     const cleanStrArray = [];
+/* function cleanInputString(str) {
+    const strArray = str.split('');
+    const cleanStrArray = [];
 
-//     for (let i = 0; i < strArray.length; i++) {
-//         if (!["+", "-", " "].includes(strArray[i])) {
-//             cleanStrArray.push(strArray[i])
-//         }
-//       }
-//    }
+    for (let i = 0; i < strArray.length; i++) {
+         if (!["+", "-", " "].includes(strArray[i])) {
+            cleanStrArray.push(strArray[i])
+         }
+      }
+    } */
 
 /* However there is a better way to create the same function. While looping through the string works, creating a new array is inefficient for memory and runtime performance. Instead, you can use Regular Expressions (referred to as "regex") to match specific characters
 
@@ -53,5 +53,21 @@ function cleanInputString(str) {
     const regex = /[+-\s]/g;
     return str.replace(regex, '');
   };
+
+/* In HTML, number inputs allow for exponential notation (such as 1e10). You need to filter those out 
+
+The e in a number input can also be an uppercase E. Regex has a flag for this, however – the i flag, which stands for "insensitive"
+
+Number inputs only allow the e to occur between two digits. To match any number, you can use the character class [0-9]. This will match any digit between 0 and 9
+
+The + modifier in a regex allows you to match a pattern that occurs one or more times. To match your digit pattern one or more times, add a plus after each of the digit character classes
+
+There is a shorthand character class to match any digit: \d 
+
+Strings have a .match() method, which takes a regex argument. .match() will return an array of match results – containing either the first match, or all matches if the global flag is used*/
+
+function isInvalidInput(str) {
+    const regex = /\d+e\d+/i;
+};
 
 
