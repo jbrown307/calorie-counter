@@ -68,6 +68,33 @@ Strings have a .match() method, which takes a regex argument. .match() will retu
 
 function isInvalidInput(str) {
     const regex = /\d+e\d+/i;
+    return str.match(regex);
 };
 
+/* You'll need to know which category the entry goes in 
+
+JavaScript has a feature called template literals, which allow you to interpolate variables directly within a string. Template literals are denoted with backticks ``, as opposed to single or double quotes. Variables can be passed in to a template literal by surrounding the variable with ${} – the value of the variable will be inserted into the string 
+
+You will want to number the entries a user adds. To get all of the number inputs, you can use the querySelectorAll() method
+
+The querySelectorAll() method returns a NodeList of all the elements that match the selector. A NodeList is an array-like object, so you can access the elements using bracket notation
+
+To see your new HTML content for the targetInputContainer, you will need to use the innerHTML property
+
+The innerHTML property sets or returns the HTML content inside an element */
+function addEntry() {
+  const targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
+  const entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length;
+  const HTMLString = `
+  <label for="${entryDropdown.value}-${entryNumber}-name">Entry ${entryNumber} Name</label>
+  <input type="text" id="${entryDropdown.value}-${entryNumber}-name" placeholder="Name" />
+  <label for="${entryDropdown.value}-${entryNumber}-calories">Entry ${entryNumber} Calories</label>
+  <input
+    type="number"
+    min="0"
+    id="${entryDropdown.value}-${entryNumber}-calories"
+    placeholder="Calories"
+  />`;
+targetInputContainer.innerHTML += HTMLString; 
+}
 
