@@ -50,9 +50,9 @@ Regex can also take specific flags to alter the pattern matching behavior. Flags
 Strings have a .replace() method which allows you to replace characters in the string with another string. .replace takes two arguments. The first is the character sequence to replace – this can either be a string or a regex pattern. The second is the string to replace that sequence with */
 
 function cleanInputString(str) {
-    const regex = /[+-\s]/g;
-    return str.replace(regex, '');
-  };
+  const regex = /[+-\s]/g;
+  return str.replace(regex, '');
+};
 
 /* In HTML, number inputs allow for exponential notation (such as 1e10). You need to filter those out 
 
@@ -67,8 +67,8 @@ There is a shorthand character class to match any digit: \d
 Strings have a .match() method, which takes a regex argument. .match() will return an array of match results – containing either the first match, or all matches if the global flag is used*/
 
 function isInvalidInput(str) {
-    const regex = /\d+e\d+/i;
-    return str.match(regex);
+  const regex = /\d+e\d+/i;
+  return str.match(regex);
 };
 
 /* You'll need to know which category the entry goes in 
@@ -81,10 +81,12 @@ The querySelectorAll() method returns a NodeList of all the elements that match 
 
 To see your new HTML content for the targetInputContainer, you will need to use the innerHTML property
 
-The innerHTML property sets or returns the HTML content inside an element */
+The innerHTML property sets or returns the HTML content inside an element 
+
+The insertAdjacentHtml method takes two arguments. The first argument is a string that specifies the position of the inserted element. The second argument is a string containing the HTML to be inserted */
 function addEntry() {
   const targetInputContainer = document.querySelector(`#${entryDropdown.value} .input-container`);
-  const entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length;
+  const entryNumber = targetInputContainer.querySelectorAll('input[type="text"]').length + 1;
   const HTMLString = `
   <label for="${entryDropdown.value}-${entryNumber}-name">Entry ${entryNumber} Name</label>
   <input type="text" id="${entryDropdown.value}-${entryNumber}-name" placeholder="Name" />
@@ -95,6 +97,13 @@ function addEntry() {
     id="${entryDropdown.value}-${entryNumber}-calories"
     placeholder="Calories"
   />`;
-targetInputContainer.innerHTML += HTMLString; 
-}
+  targetInputContainer.insertAdjacentHTML( "beforeend", HTMLString );
+};
+
+/* The addEventListener method takes two arguments. The first is the event to listen to. (Ex. 'click') The second is the callback function, or the function that runs when the event is triggered
+
+Call the .addEventListener() method on the addEntryButton. Pass in the string "click" for the first argument and the addEntry function for the second argument */
+addEntryButton.addEventListener("click", addEntry);
+
+
 
