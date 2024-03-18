@@ -105,5 +105,35 @@ function addEntry() {
 Call the .addEventListener() method on the addEntryButton. Pass in the string "click" for the first argument and the addEntry function for the second argument */
 addEntryButton.addEventListener("click", addEntry);
 
+/* The list parameter is going to be the result of a query selector, which will return a NodeList. A NodeList is a list of elements like an array. It contains the elements that match the query selector. You will need to loop through these elements in the list
+
+You can also use a for...of loop to loop through an array and a NodeList
+
+A for...of loop is used to iterate over elements in an iterable object like an array. The variable declared in the loop represents the current element being iterated over 
+
+In JavaScript, values can either be truthy or falsy. A value is truthy if it evaluates to true when converted to a Boolean. A value is falsy if it evaluates to false when converted to a Boolean. null is an example of a falsy value
+
+In programming, null is meant to represent the absence of a value. In this case, if the user enters an invalid input, you want to alert them and then return null to indicate that the function has failed
+
+Remember that return ends the execution of a function. After your if block, you need to handle the logic for when the input is valid. Because your if statement returns a value, you do not need an else statement 
+
+The Number constructor is a function that converts a value to a number. If the value cannot be converted, it returns NaN which stands for "Not a Number" */
+function getCaloriesFromInputs(list) {
+  let calories = 0;
+
+  for (const item of list) {
+    const currVal = cleanInputString(item.value);
+    const invalidInputMatch = isInvalidInput(currVal);
+
+    if (invalidInputMatch) {
+      alert(`Invalid Input: ${invalidInputMatch[0]}`);
+      isError = true;
+      return null;
+    }
+    calories += Number(currVal);
+  }
+  return calories
+}
+
 
 
