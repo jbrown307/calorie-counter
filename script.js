@@ -132,8 +132,47 @@ function getCaloriesFromInputs(list) {
     }
     calories += Number(currVal);
   }
-  return calories
-}
+  return calories;
+};
 
 
+/* This function will be another event listener, so the first argument passed will be the browser event – e is a common name for this parameter 
+
+Math.abs() is a built-in JavaScript method that will return the absolute value of a number 
+
+This property has a .remove() method, which accepts a string representing the class to remove from the element */
+function calculateCalories(e) {
+  e.preventDefault();
+  isError = false;
+
+  const breakfastNumberInputs = document.querySelectorAll('#breakfast input[type=number]');
+  const lunchNumberInputs = document.querySelectorAll('#lunch input[type=number]');
+  const dinnerNumberInputs = document.querySelectorAll('#dinner input[type=number]');
+  const snacksNumberInputs = document.querySelectorAll('#snacks input[type=number]');
+  const exerciseNumberInputs = document.querySelectorAll('#exercise input[type=number]');
+
+  const breakfastCalories = getCaloriesFromInputs(breakfastNumberInputs);
+  const lunchCalories = getCaloriesFromInputs(lunchNumberInputs);
+  const dinnerCalories = getCaloriesFromInputs(dinnerNumberInputs);
+  const snacksCalories = getCaloriesFromInputs(snacksNumberInputs);
+  const exerciseCalories = getCaloriesFromInputs(exerciseNumberInputs);
+  const budgetCalories = getCaloriesFromInputs([budgetNumberInput]);
+
+  if (isError) {
+    return;
+  }
+
+  const consumedCalories = breakfastCalories + lunchCalories + dinnerCalories + snacksCalories;
+  const remainingCalories = budgetCalories - consumedCalories + exerciseCalories;
+  const surplusOrDeficit = remainingCalories < 0 ? 'Surplus' : 'Deficit';
+  output.innerHTML = `
+  <span class="${surplusOrDeficit.toLowerCase()}">${Math.abs(remainingCalories)} Calorie ${surplusOrDeficit}</span>
+  <hr>
+  <p>${budgetCalories} Calories Budgeted</p>
+  <p>${consumedCalories} Calories Consumed</p>
+  <p>${exerciseCalories} Calories Burned</p>
+  `;
+
+  output.classList.remove('hide');
+};
 
